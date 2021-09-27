@@ -1,8 +1,17 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe('App', () => {
+  it('render App title', () => {
+    render(<App />);
+    expect(screen.getByText(/Desafio Iti/i)).toBeInTheDocument();
+  })
+
+  it('render transactions list', () => {
+    render(<App />);
+    const list = screen.getByTestId("transactions-list")
+    const { getAllByRole } = within(list)
+    const items = getAllByRole("listitem")
+    expect(items.length).toBe(5)
+  })
 });
